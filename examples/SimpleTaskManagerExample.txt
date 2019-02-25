@@ -1,0 +1,12 @@
+from ucutils import SimpleTaskManager
+
+taskmanager = SimpleTaskManager()
+taskmanager.addTask("blink", 5000)
+
+print("will blink forever every 5 seconds")
+while True:
+	#blink green
+	if(taskmanager.checktask("blink")):
+	    pycom.rgbled(0x00FF00) #green
+	    time.sleep(0.010)
+	    pycom.rgbled(0x000000)
