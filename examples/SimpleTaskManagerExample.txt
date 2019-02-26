@@ -1,6 +1,7 @@
 from ucutils import SimpleTaskManager
 
 taskmanager = SimpleTaskManager()
+taskmanager.debug=True
 taskmanager.addTask("blink", 5000)
 
 print("will blink forever every 5 seconds")

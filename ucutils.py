@@ -21,6 +21,7 @@ class SimpleTaskManager:
 
     _intervals_ms={}
     _timers_next_ms={}
+    debug = False
 
     #returns true if it is time to run the task, else returs false
     #returns true on unitialised tasks, False on undefined tasks
@@ -28,15 +29,15 @@ class SimpleTaskManager:
         if tname in self._timers_next_ms:
             if time.ticks_ms() > self._timers_next_ms[tname]:
                 self._timers_next_ms[tname] += self._intervals_ms[tname]
+                if self.debug : print("Running task:", tname) 
                 return True
             else:
                 return False
-        elif tname in self._intervals_ms:
-            #initialise the timer
-            self._timers_next_ms[tname] = time.ticks_ms() + self._intervals_ms[tname]
-            return True
         else:
+            if self.debug : print("Unknown task:", tname) 
             return False
 
     def addTask(self, tname, interval_ms):
         self._intervals_ms[tname]=interval_ms
+        self._timers_next_ms[tname] = time.ticks_ms() + self._intervals_ms[tname]
+        if self.debug : print("Configured tasks intervals:",self._intervals_ms) 
